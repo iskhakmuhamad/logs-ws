@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -19,6 +20,10 @@ type Config struct {
 	RedisHost     string
 	RedisPort     string
 	RedisPassword string
+
+	KafkaBrokers []string
+	KafkaTopic   string
+	KafkaGroupID string
 }
 
 func LoadConfig() *Config {
@@ -30,6 +35,10 @@ func LoadConfig() *Config {
 		DBUser:    getEnv("DB_USER", "postgres"),
 		DBPass:    getEnv("DB_PASS", "mypostgresspw"),
 		DBName:    getEnv("DB_NAME", "mylogs"),
+
+		KafkaBrokers: strings.Split(getEnv("KAFKA_BROKERS", "localhost:29092"), ","),
+		KafkaTopic:   getEnv("KAFKA_TOPIC", "test-topic"),
+		KafkaGroupID: getEnv("KAFKA_GROUP_ID", "go-consumer-group"),
 	}
 }
 
