@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"context"
-	"log"
 
 	"github.com/iskhakmuhamad/mylogs-ws/internal/delivery/ws"
 	"github.com/iskhakmuhamad/mylogs-ws/internal/entity"
@@ -39,7 +38,6 @@ func (u *notificationUsecase) Create(n *entity.Notification) error {
 }
 
 func (u *notificationUsecase) HandleIncomingNotification(ctx context.Context, notif entity.Notification) error {
-	log.Println("check ,", notif)
 	if err := u.repo.Create(&notif); err != nil {
 		return err
 	}
