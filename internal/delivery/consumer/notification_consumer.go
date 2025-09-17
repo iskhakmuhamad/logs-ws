@@ -23,7 +23,6 @@ func NewNotificationConsumer(c *broker.KafkaConsumer, u usecase.NotificationUsec
 func (nc *NotificationConsumer) Start(ctx context.Context) error {
 	return nc.consumer.Consume(ctx, func(m kafka.Message) error {
 		var notif entity.Notification
-		log.Println("check value ", m.Value)
 		if err := json.Unmarshal(m.Value, &notif); err != nil {
 			log.Printf("❌ Failed to unmarshal message: %v", err)
 			return err
